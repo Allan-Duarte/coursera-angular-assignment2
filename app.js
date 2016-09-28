@@ -33,22 +33,24 @@ angular.module('ShoppingListCheckOff', [])
 
 
 // ToBuy Controller Implementation
-ToBuyController.$inject = ['$scope', 'ShoppingListCheckOffService'];
-function ToBuyController($scope, ShoppingListCheckOffService) {
-  $scope.toBuyItems = toBuyItems;
+ToBuyController.$inject = ['ShoppingListCheckOffService'];
+function ToBuyController(ShoppingListCheckOffService) { 
+  var buyController = this;
+  buyController.toBuyItems = toBuyItems;
 
-  $scope.buyItem = function(index){
-  	var boughtItem = $scope.toBuyItems.splice(index, 1);
+  buyController.buyItem = function(index){
+  	var boughtItem = buyController.toBuyItems.splice(index, 1);
   	ShoppingListCheckOffService.buyItem(boughtItem[0].name, boughtItem[0].quantity);
   };
 }
 
 
 // AlreadyBought Controller Implementation
-AlreadyBoughtController.$inject = ['$scope', 'ShoppingListCheckOffService'];
-function AlreadyBoughtController($scope, ShoppingListCheckOffService) {
-  $scope.boughtItems = ShoppingListCheckOffService.getItems();
-  $scope.boughtItemsEmpty = ($scope.boughtItems.length === 0);
+AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+function AlreadyBoughtController(ShoppingListCheckOffService) {
+  var boughtController = this;	
+  boughtController.boughtItems = ShoppingListCheckOffService.getItems();
+  boughtController.boughtItemsEmpty = (boughtController.boughtItems.length === 0);
 }
 
 
